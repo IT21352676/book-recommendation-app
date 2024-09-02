@@ -37,3 +37,8 @@ app.use('/api/books', recommendRouter);
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+const startBot = require('./bot');
+
+// Start the Discord bot
+startBot();

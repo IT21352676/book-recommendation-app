@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const Review = require('../models/reviewModel');
-const Book = require('../models/bookModel');
+const Review = require('../models/Review');
+const Book = require('../models/Book');
 
 // Get all reviews for a specific book
 router.get('/books/:bookId/reviews', async (req, res) => {

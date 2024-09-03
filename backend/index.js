@@ -23,15 +23,12 @@ mongoose.connect(process.env.MONGO_URI, {
 // Routes
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/books', require('./routes/bookRoutes'));
-//app.use('/api/reviews', require('./routes/reviewRoutes'));
-
-const reviewRoutes = require('./routes/reviewRoutes');
-
-// Other route imports...
-app.use('/api', reviewRoutes);
+app.use('/api/reviews', require('./routes/reviewRoutes'));
 
 const recommendRouter = require('./routes/recommendRoutes');
 app.use('/api/books', recommendRouter);
+
+
 
 // Start server
 app.listen(PORT, () => {

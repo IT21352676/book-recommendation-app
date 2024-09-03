@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Typography, TextField, Button, Paper, Box, Alert, List, ListItem, ListItemText, IconButton, Modal, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
+import { Container, Grid, Typography, TextField, Button, Paper, Box, Alert, List, ListItem, ListItemText, IconButton, Modal, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import { Edit, Delete, Search, Add } from '@mui/icons-material';
 import { getBooks, addBook, updateBook, deleteBook, getRecommendations, getReviews, addReview } from './api'; // Ensure path is correct
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import BookIcon from '@mui/icons-material/Book';
+import StarIcon from '@mui/icons-material/Star';
+import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
+
 
 const BooksPage = () => {
   const [books, setBooks] = useState([]);
@@ -17,6 +22,16 @@ const BooksPage = () => {
   const [reviews, setReviews] = useState([]);
   const [reviewError, setReviewError] = useState('');
   const [newReview, setNewReview] = useState('');
+
+  const inviteLink = `https://discord.com/oauth2/authorize?client_id=1280239916034429093&permissions=8&integration_type=0&scope=bot`;
+
+
+  const navigate = useNavigate();
+
+  const handleSeeReviews = () => {
+    navigate('/reviews'); // Go to review page
+  };
+
 
   useEffect(() => {
     const fetchAllBooks = async () => {
@@ -117,8 +132,16 @@ const BooksPage = () => {
 
 
   return (
-    <Container maxWidth="md" sx={{ paddingY: '20px' }}>
-      
+  
+    <Container maxWidth="ls">
+      <Grid maxWidth="md"
+      sx={{
+        paddingY: '20px',
+        marginLeft: 'auto', // Align the container to the left side
+        marginRight: 'auto',
+      }}>
+
+
       <Paper sx={{ padding: '40px', marginBottom: '20px' }}>
         <Typography 
           variant="h4" 
@@ -155,9 +178,72 @@ const BooksPage = () => {
             </Button>
           </Box>
         </form>
+        
       </Paper>
 
       {error && <Alert severity="error" sx={{ marginBottom: '20px' }}>{error}</Alert>}
+
+
+
+
+      <Paper sx={{ padding: '40px', marginBottom: '20px' }}>
+    
+         
+      <Typography variant="h6" sx={{ 
+            fontWeight: 'bold', 
+            color: '#3e2723', 
+            textAlign: 'center', 
+            marginBottom: '20px'
+          }}>
+        Invite Our Discord Bot to Your Server
+      </Typography>
+      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+      <Button
+        variant="contained"
+        color="primary"
+        href="https://discord.com/oauth2/authorize?client_id=1280239916034429093&permissions=8&integration_type=0&scope=bot"
+        target="_blank"
+        sx={{ paddingX: 5, backgroundColor: '#8d6e63', '&:hover': { backgroundColor: '#6d4c41' } }}
+      >
+        Invite Bot
+      </Button>
+      </Box> 
+
+      <Typography variant="h6" style={{ marginTop: '20px' }}>
+        Example Commands
+      </Typography>
+      <Typography variant="body1">
+        <ul>
+          <li><strong>!addbook "Title" "Author" "Description"</strong> - Add a book to your library.</li>
+          <li><strong>!listbooks</strong> - List all books in your library.</li>
+          <li><strong>!editbook "Current Title" "New Title" "New Author" "New Description"</strong> - Edit a book in your library.</li>
+          <li><strong>!deletebook "Title"</strong> - Delete a book from your library.</li>
+        </ul>
+      </Typography>
+    </Paper>
+
+    <Paper sx={{ padding: '40px', marginBottom: '20px' }}>
+    
+    <Typography variant="h6" sx={{ 
+            fontWeight: 'bold', 
+            color: '#3e2723', 
+            textAlign: 'center', 
+            marginBottom: '20px',
+            fontSize: '1.1rem'
+          }}>
+        "Explore and share your thoughts on the books you love. Discover reviews and contribute your own!"
+      </Typography>
+      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+      <Button
+      onClick={handleSeeReviews}
+      variant="contained"
+      color="primary"
+      endIcon={<ChatBubbleOutlineIcon />}
+      sx={{ paddingX: 5, backgroundColor: '#8d6e63', '&:hover': { backgroundColor: '#6d4c41' } }}>
+            See Reviews
+          </Button>
+          </Box>
+          </Paper>
 
       <Paper sx={{ padding: '40px', marginBottom: '20px' }}>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -183,6 +269,7 @@ const BooksPage = () => {
           >
             Add New Book
           </Button>
+         
         </Box>
         <List>
           {books.map((book) => (
@@ -207,6 +294,8 @@ const BooksPage = () => {
           ))}
         </List>
       </Paper>
+
+      
 
       <Paper sx={{ padding: '40px', marginBottom: '20px' }}>
         <Typography 
@@ -339,7 +428,15 @@ const BooksPage = () => {
           </DialogContent>
         </Paper>
       </Modal>
+      </Grid>
     </Container>
+    
+
+
+  
+
+
+
   );
 };
 

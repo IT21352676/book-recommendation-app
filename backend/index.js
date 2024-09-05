@@ -39,8 +39,7 @@ app.listen(PORT, () => {
 const startBot = require('./bot');
 startBot();
 
-const express = require('express');
-const serverless = require('serverless-http');
+
 
 
 app.get('/api/hello', (req, res) => {

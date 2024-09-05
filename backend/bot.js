@@ -104,12 +104,11 @@ function startBot() {
                     }
                 }
 
-                // !editbook "Title" "New Title" "New Author" "New Description" Edit Book Command
+                // Command: !editbook "Book Name" "New Title" "New Author" "New Description"
                 if (message.content.startsWith(`<@${client.user.id}> !editbook`)) {
                     console.log('Command received: !editbook');
-
-                    console.log(`User : ${client.user.id}`);
                     
+                    // Extract the book name and new details from the command
                     const args = message.content.split(/"([^"]+)"/);
                     
                     if (args.length < 4) {
@@ -120,8 +119,11 @@ function startBot() {
 
                     console.log(args);
                     
+
+
                     const trimmedArgs = args.map(arg => arg.trim()).filter(arg => arg !== '');
 
+                    
                     const id = trimmedArgs[0]; 
                     const bookName = trimmedArgs[1]; 
                     const newTitle = trimmedArgs[2]; 

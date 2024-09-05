@@ -1,7 +1,10 @@
 {
-    "functions": {
-      "backend/index.js": {
-        "runtime": "nodejs14.x"
-      }
+  "functions": {
+    "backend/api/**/*.js": {
+      "runtime": "nodejs18.x"
     }
-  }
+  },
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/backend/api/$1" }
+  ]
+}

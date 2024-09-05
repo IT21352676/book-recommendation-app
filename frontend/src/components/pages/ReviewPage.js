@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Container, TextField, Button, Typography, Grid, Paper, Rating, Box } from '@mui/material';
 import { getReviews, addReview } from './api';
-<<<<<<< HEAD
 import PersonIcon from '@mui/icons-material/Person';
 import BookIcon from '@mui/icons-material/Book';
-=======
-import axios from 'axios';
->>>>>>> 7d7a4f3ee653131562edc7bdfa877a7fb685e547
 
 const ReviewPage = () => {
   const [reviews, setReviews] = useState([]);
@@ -19,10 +15,6 @@ const ReviewPage = () => {
 
   // Get all reviews
   useEffect(() => {
-<<<<<<< HEAD
-=======
-    // Fetch all reviews when the page loads
->>>>>>> 7d7a4f3ee653131562edc7bdfa877a7fb685e547
     getReviews()
       .then(response => setReviews(response.data))
       .catch(error => console.error('Error fetching reviews:', error));
@@ -37,10 +29,7 @@ const ReviewPage = () => {
     setNewReview({ ...newReview, rating: newValue });
   };
 
-<<<<<<< HEAD
   // Add a review
-=======
->>>>>>> 7d7a4f3ee653131562edc7bdfa877a7fb685e547
   const handleSubmit = () => {
     addReview(newReview)
       .then(response => {
@@ -55,11 +44,7 @@ const ReviewPage = () => {
       
       <Grid container spacing={2}>
         <Grid item xs={12}>
-<<<<<<< HEAD
           <Paper sx={{ padding: '16px', marginBottom: '20px'}}>
-=======
-          <Paper sx={{ padding: '16px' }}>
->>>>>>> 7d7a4f3ee653131562edc7bdfa877a7fb685e547
 
           <Typography 
           variant="h4" 
@@ -98,11 +83,7 @@ const ReviewPage = () => {
             />
             <TextField
               label="Your Name"
-<<<<<<< HEAD
               name="UserName"
-=======
-              name="YourName"
->>>>>>> 7d7a4f3ee653131562edc7bdfa877a7fb685e547
               value={newReview.UserName}
               onChange={handleInputChange}
               fullWidth
@@ -127,11 +108,7 @@ const ReviewPage = () => {
             display: 'flex', 
             justifyContent: 'center', 
             marginTop: 2,
-<<<<<<< HEAD
             marginBottom: 5,
-=======
-            marginBottom: 5,// Adjust as needed for spacing from top
->>>>>>> 7d7a4f3ee653131562edc7bdfa877a7fb685e547
             }}
             >
             <Button 
@@ -148,7 +125,6 @@ const ReviewPage = () => {
                 </Button>
             </Box>
           </Paper>
-<<<<<<< HEAD
         
 
 
@@ -172,9 +148,6 @@ const ReviewPage = () => {
     </Paper>
 
     </Grid>
-=======
-        </Grid>
->>>>>>> 7d7a4f3ee653131562edc7bdfa877a7fb685e547
 
         <Grid item xs={12} sx={{ marginTop: '20px' }}>
         <Paper sx={{ padding: '16px' }}>
@@ -196,7 +169,6 @@ const ReviewPage = () => {
             sx={{ 
               padding: '16px', 
               marginBottom: '10px', 
-<<<<<<< HEAD
               backgroundColor: 'rgba(166, 127, 116, 0.3)'
             }}
           >
@@ -210,15 +182,6 @@ const ReviewPage = () => {
               </Typography >
               <Rating value={review.rating} readOnly sx={{marginBottom:1}}/>
               <Typography variant="body2" sx={{marginBottom:1}}>Genre: {review.genre}</Typography>
-=======
-              backgroundColor: 'rgba(166, 127, 116, 0.3)' // Light brown with 80% opacity
-            }}
-          >
-              <Typography variant="h6">{review.bookName}</Typography>
-              <Typography variant="body1">By: {review.UserName}</Typography>
-              <Rating value={review.rating} readOnly />
-              <Typography variant="body2">Genre: {review.genre}</Typography>
->>>>>>> 7d7a4f3ee653131562edc7bdfa877a7fb685e547
             </Paper>
           ))}
           </Paper>

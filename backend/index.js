@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const serverless = require('serverless-http');
 
 dotenv.config();
 
@@ -37,3 +38,5 @@ app.listen(PORT, () => {
 // Start the Discord bot
 const startBot = require('./bot');
 startBot();
+
+module.exports.handler = serverless(app);

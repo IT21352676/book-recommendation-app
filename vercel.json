@@ -1,0 +1,7 @@
+{
+    "functions": {
+      "backend/index.js": {
+        "runtime": "nodejs14.x"
+      }
+    }
+  }

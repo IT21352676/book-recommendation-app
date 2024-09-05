@@ -39,4 +39,8 @@ app.listen(PORT, () => {
 const startBot = require('./bot');
 startBot();
 
+app.get('/api/hello', (req, res) => {
+  res.json({ message: 'Hello from the backend!' });
+});
+
 module.exports.handler = serverless(app);

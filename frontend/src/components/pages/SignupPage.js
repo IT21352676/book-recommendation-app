@@ -10,6 +10,7 @@ const SignupPage = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  // Sign Up
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
@@ -18,7 +19,7 @@ const SignupPage = () => {
     }
     try {
       await signup(email, password);
-      navigate('/login'); // Redirect to login after successful signup
+      navigate('/login');
     } catch (error) {
       setError('Sign up failed');
     }

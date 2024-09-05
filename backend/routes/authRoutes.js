@@ -4,6 +4,7 @@ const User = require('../models/User');
 const router = express.Router();
 require('dotenv').config();
 
+// Signup function
 router.post('/signup', async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -15,6 +16,7 @@ router.post('/signup', async (req, res) => {
   }
 });
 
+// Login function
 router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -29,7 +31,7 @@ router.post('/login', async (req, res) => {
     if (!isMatch) {
       return res.status(401).send('Invalid password');
     }
-
+// JWT authentication
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
     res.json({ token });
   } catch (error) {
@@ -39,7 +41,7 @@ router.post('/login', async (req, res) => {
 });
 
 router.post('/logout', (req, res) => {
-  // Invalidate the token on client-side or use a token blacklist for server-side invalidation.
+// Invalidate the token on client-side or use a token blacklist for server-side invalidation.
   res.send('Logged out');
 });
 

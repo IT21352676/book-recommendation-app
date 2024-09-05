@@ -1,13 +1,16 @@
 const express = require('express');
 const router = express.Router();
-const { OpenAI } = require('openai'); // Adjust import based on package usage
+const { OpenAI } = require('openai');
+
+
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY, // Ensure this key is set in your environment variables
+  apiKey: process.env.OPENAI_API_KEY, // OpenAI API KEY
 });
 
 // Define the endpoint for getting book recommendations
 router.post('/recommend', async (req, res) => {
-  const { readingHistory } = req.body; // Ensure you get readingHistory from the request
+  const { readingHistory } = req.body; // Getting the Titles of the book list
+  console.log(readingHistory); // console log reading history
 
   if (!readingHistory) {
     return res.status(400).json({ error: 'Reading history is required' });
@@ -16,14 +19,16 @@ router.post('/recommend', async (req, res) => {
   try {
     // Make the request to OpenAI API
     const response = await openai.chat.completions.create({
-      model: 'gpt-3.5-turbo', // or 'gpt-4' depending on the model you are using
+      model: 'gpt-3.5-turbo',
       messages: [
         {
           role: 'user',
           content: `Based on the following reading history, recommend some books: ${readingHistory}`,
         },
       ],
+      
     });
+    
 
     // Extract recommendations from the response
     const recommendations = response.choices[0].message.content;

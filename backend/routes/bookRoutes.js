@@ -34,7 +34,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// Update a book
+// Update a book by ID
 router.put('/:id', async (req, res) => {
   try {
     const book = await Book.findByIdAndUpdate(req.params.id, req.body, { new: true });
@@ -45,7 +45,7 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// Delete a book
+// Delete a book by ID
 router.delete('/:id', async (req, res) => {
   try {
     const book = await Book.findByIdAndDelete(req.params.id);
@@ -55,5 +55,33 @@ router.delete('/:id', async (req, res) => {
     res.status(500).send(error.message);
   }
 });
+
+// Delet a book by title
+router.delete('/title/:title', async (req, res) => {
+  try {
+    const book = await Book.findOneAndDelete({ title: req.params.title });
+    if (!book) return res.status(404).send('Book not found');
+    res.send('Book deleted');
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
+
+// Update a book by title
+router.put('/title/:title', async (req, res) => {
+  try {
+    const book = await Book.findOneAndUpdate(
+      { title: req.params.title },
+      req.body, 
+      { new: true } 
+    );
+    if (!book) return res.status(404).send('Book not found');
+    res.json(book);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+});
+
+
 
 module.exports = router;

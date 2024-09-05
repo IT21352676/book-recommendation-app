@@ -1,11 +1,12 @@
 const { OpenAI } = require('openai');
 
-// Initialize OpenAI client directly with API key
+// For testing of the OPENAI API
+
 const openai = new OpenAI({
-  apiKey: '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',
+  apiKey: process.env.OPENAI_API_KEY, // OpenAI API KEY
 });
 
-// Example function to use OpenAI API
+// Testing recomendations
 const getRecommendations = async () => {
   try {
     const response = await openai.chat.completions.create({

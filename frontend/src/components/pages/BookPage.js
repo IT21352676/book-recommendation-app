@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Typography, TextField, Button, Paper, Box, Alert, List, ListItem, ListItemText, IconButton, Modal, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
+import { Container, Grid, Typography, TextField, Button, Paper, Box, Alert, List, ListItem, ListItemText, IconButton, Modal, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import { Edit, Delete, Search, Add } from '@mui/icons-material';
-import { getBooks, addBook, updateBook, deleteBook, getRecommendations, getReviews, addReview } from './api'; // Ensure path is correct
-import axios from 'axios';
+import { getBooks, addBook, updateBook, deleteBook, getRecommendations} from './api'; // Ensure path is correct
+
+import { useNavigate } from 'react-router-dom';
+import BookIcon from '@mui/icons-material/Book';
+
+import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
+
 
 const BooksPage = () => {
   const [books, setBooks] = useState([]);
@@ -14,10 +19,19 @@ const BooksPage = () => {
   const [recommendations, setRecommendations] = useState([]);
   const [recommendationError, setRecommendationError] = useState('');
   const [readingHistory, setReadingHistory] = useState('');
-  const [reviews, setReviews] = useState([]);
-  const [reviewError, setReviewError] = useState('');
-  const [newReview, setNewReview] = useState('');
+  // const [reviews, setReviews] = useState([]);
+  // const [reviewError, setReviewError] = useState('');
+  // const [newReview, setNewReview] = useState('');
 
+  const navigate = useNavigate();
+
+
+  // Navigate to review page
+  const handleSeeReviews = () => {
+    navigate('/reviews'); // Go to review page
+  };
+
+  // Get all books
   useEffect(() => {
     const fetchAllBooks = async () => {
       try {
@@ -31,6 +45,7 @@ const BooksPage = () => {
     fetchAllBooks();
   }, []);
 
+  // Search for books
   const handleSearch = async (e) => {
     e.preventDefault();
     try {
@@ -41,6 +56,7 @@ const BooksPage = () => {
     }
   };
 
+  // Add and update a book
   const handleAddOrUpdateBook = async (e) => {
     e.preventDefault();
     try {
@@ -52,7 +68,6 @@ const BooksPage = () => {
       setShowDialog(false);
       setFormValues({ title: '', author: '', description: '' });
       setSelectedBook(null);
-      // Refresh the book list after adding or updating
       const response = await getBooks();
       setBooks(response.data);
     } catch (error) {
@@ -60,6 +75,7 @@ const BooksPage = () => {
     }
   };
 
+  // Delete a book
   const handleDeleteBook = async (bookId) => {
     try {
       await deleteBook(bookId);
@@ -71,6 +87,7 @@ const BooksPage = () => {
     }
   };
 
+  // Pop up dialog window
   const openDialog = (book = null) => {
     if (book) {
       setSelectedBook(book);
@@ -82,6 +99,7 @@ const BooksPage = () => {
     setShowDialog(true);
   };
 
+  // Get recomendations
   const handleGetRecommendations = async () => {
     try {
       const response = await getRecommendations({
@@ -95,30 +113,38 @@ const BooksPage = () => {
     }
   };
 
-  const handleAddReview = async (e) => {
-    e.preventDefault();
-    try {
-      await addReview(selectedBook._id, { content: newReview });
-      setNewReview('');
-      fetchReviews(selectedBook._id);
-    } catch (error) {
-      setReviewError('Failed to add review');
-    }
-  };
+  // const handleAddReview = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     await addReview(selectedBook._id, { content: newReview });
+  //     setNewReview('');
+  //     fetchReviews(selectedBook._id);
+  //   } catch (error) {
+  //     setReviewError('Failed to add review');
+  //   }
+  // };
 
-  const fetchReviews = async (bookId) => {
-    try {
-      const response = await getReviews(bookId);
-      setReviews(response.data);
-    } catch (error) {
-      setReviewError('Failed to fetch reviews');
-    }
-  };
+  // const fetchReviews = async (bookId) => {
+  //   try {
+  //     const response = await getReviews(bookId);
+  //     setReviews(response.data);
+  //   } catch (error) {
+  //     setReviewError('Failed to fetch reviews');
+  //   }
+  // };
 
 
   return (
-    <Container maxWidth="md" sx={{ paddingY: '20px' }}>
-      
+  
+    <Container maxWidth="ls">
+      <Grid maxWidth="md"
+      sx={{
+        paddingY: '20px',
+        marginLeft: 'auto', // Align the container to the left side
+        marginRight: 'auto',
+      }}>
+
+      {/*Search book part*/}   
       <Paper sx={{ padding: '40px', marginBottom: '20px' }}>
         <Typography 
           variant="h4" 
@@ -155,10 +181,80 @@ const BooksPage = () => {
             </Button>
           </Box>
         </form>
+        
       </Paper>
 
       {error && <Alert severity="error" sx={{ marginBottom: '20px' }}>{error}</Alert>}
 
+      {/*Discord bot part*/}   
+      <Paper sx={{ padding: '40px', marginBottom: '20px' }}>   
+      <Typography variant="h6" sx={{ 
+            fontWeight: 'bold', 
+            color: '#3e2723', 
+            textAlign: 'center', 
+            marginBottom: '20px'
+          }}>
+        Invite Our Discord Bot to Your Server
+      </Typography>
+      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+      <Button
+        variant="contained"
+        color="primary"
+        href="https://discord.com/oauth2/authorize?client_id=1280239916034429093&permissions=8&integration_type=0&scope=bot"  // Discord bot (book-recomendation-app) invite link
+        target="_blank"
+        sx={{ paddingX: 5, backgroundColor: '#8d6e63', '&:hover': { backgroundColor: '#6d4c41' } }}>
+        Invite Bot
+      </Button>
+      </Box> 
+      <Typography variant="h6" style={{ marginTop: '40px' }}>
+        After Adding The Bot To Your Discord Server
+      </Typography>
+      <Typography variant="body1">
+        <ul>
+          <li><strong>@book-recomendation-app</strong> - Please remember to mention the bot before using any commands to ensure it receives your request.</li>
+          </ul>
+      </Typography>
+      <Typography variant="h6" style={{ marginTop: '20px' }}>
+        How The Use Commands To Bot
+      </Typography>
+      <Typography variant="body1">
+        <ul>
+          <li><strong>!addbook "Title" "Author" "Description"</strong> - Add a book to your library.</li>
+          <li><strong>!listbooks</strong> - List all books in your library.</li>
+          <li><strong>!editbook "Current Title" "New Title" "New Author" "New Description"</strong> - Edit a book in your library.</li>
+          <li><strong>!deletebook "Title"</strong> - Delete a book from your library.</li>
+        </ul>
+      </Typography>
+      <Typography variant="h6" style={{ marginTop: '20px' }}>
+        Example :- <strong>@book-recomendation-app !addbook "Title" "Author" "Description"</strong>
+      </Typography>
+    </Paper>
+
+
+    {/*Review page navigate part*/}   
+    <Paper sx={{ padding: '40px', marginBottom: '20px' }}>
+    <Typography variant="h6" sx={{ 
+            fontWeight: 'bold', 
+            color: '#3e2723', 
+            textAlign: 'center', 
+            marginBottom: '20px',
+            fontSize: '1.1rem'
+          }}>
+        "Explore and share your thoughts on the books you love. Discover reviews and contribute your own!"
+      </Typography>
+      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+      <Button
+      onClick={handleSeeReviews}
+      variant="contained"
+      color="primary"
+      endIcon={<ChatBubbleOutlineIcon />}
+      sx={{ paddingX: 5, backgroundColor: '#8d6e63', '&:hover': { backgroundColor: '#6d4c41' } }}>
+            See Reviews
+          </Button>
+          </Box>
+          </Paper>
+
+      {/*Book list part*/}  
       <Paper sx={{ padding: '40px', marginBottom: '20px' }}>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <Typography 
@@ -183,31 +279,39 @@ const BooksPage = () => {
           >
             Add New Book
           </Button>
+         
         </Box>
         <List>
-          {books.map((book) => (
-            <ListItem key={book._id} divider>
-              <ListItemText 
-                primary={book.title} 
-                secondary={
-                  <React.Fragment>
-                    <span>Author: {book.author}</span>
-                    <br />
-                    <span>Description: {book.description}</span>
-                  </React.Fragment>
-                }
-              />
-              <IconButton onClick={() => openDialog(book)}>
-                <Edit />
-              </IconButton>
-              <IconButton onClick={() => handleDeleteBook(book._id)}>
-                <Delete />
-              </IconButton>
-            </ListItem>
-          ))}
-        </List>
+      {books.map((book) => (
+        <ListItem key={book._id} divider>
+          <ListItemText
+            primary={
+              <Typography component="span" sx={{ display: 'flex', alignItems: 'center', color: '#3e2723', fontWeight: 'bold' }}>
+                <BookIcon sx={{ fontSize: 20, marginRight: 1 }} />
+                {book.title}
+              </Typography>
+            }
+            secondary={
+              <React.Fragment>
+                <span>Author: {book.author}</span>
+                <br />
+                <span>Description: {book.description}</span>
+              </React.Fragment>
+            }
+          />
+          <IconButton onClick={() => openDialog(book)}>
+            <Edit />
+          </IconButton>
+          <IconButton onClick={() => handleDeleteBook(book._id)}>
+            <Delete />
+          </IconButton>
+        </ListItem>
+      ))}
+</List>
       </Paper>
 
+      
+      {/*Get recomendation part*/}  
       <Paper sx={{ padding: '40px', marginBottom: '20px' }}>
         <Typography 
           variant="h6" 
@@ -254,14 +358,14 @@ const BooksPage = () => {
             color: '#3e2723', 
             fontSize: '1rem', 
             textAlign: 'center', 
-            marginBottom: '20px',
+            marginBottom: '20px', 
             marginTop: '20px'
           }}
         >
           Or
         </Typography>
         <TextField
-            label="Enter keyword to get recommendation"
+            label="Enter keywords to get recommendation"
             variant="outlined"
             multiline
             rows={4}
@@ -339,6 +443,7 @@ const BooksPage = () => {
           </DialogContent>
         </Paper>
       </Modal>
+      </Grid>
     </Container>
   );
 };

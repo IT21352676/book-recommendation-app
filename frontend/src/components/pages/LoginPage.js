@@ -9,13 +9,13 @@ const LoginPage = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  // Login
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await login(email, password);
       localStorage.setItem('token', response.data.token);
        navigate('/books');
-      // Redirect to dashboard or update UI after login
     } catch (error) {
       setError('Invalid credentials');
     }

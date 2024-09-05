@@ -1,58 +1,41 @@
 const express = require('express');
 const router = express.Router();
 const Review = require('../models/Review');
-const Book = require('../models/Book');
 
-// Get all reviews for a specific book
-router.get('/books/:bookId/reviews', async (req, res) => {
+// Get all reviews
+router.get('/', async (req, res) => {
   try {
-    const reviews = await Review.find({ bookId: req.params.bookId });
+    const reviews = await Review.find();
     res.json(reviews);
   } catch (error) {
-    res.status(500).json({ message: 'Failed to fetch reviews', error });
+    res.status(500).send(error.message);
   }
 });
 
-// Add a new review for a specific book
-router.post('/books/:bookId/reviews', async (req, res) => {
+// Add a new review
+router.post('/', async (req, res) => {
   try {
-    const { rating, comment, userId } = req.body;
-    const bookId = req.params.bookId;
-
-    if (!rating || !comment || !userId) {
-      return res.status(400).json({ message: 'Rating, comment, and userId are required' });
-    }
-
-    const newReview = new Review({
-      bookId,
-      userId,
-      rating,
-      comment,
-    });
-
-    const savedReview = await newReview.save();
-
-    // Optionally, update the book's review count or rating average here
-
-    res.status(201).json(savedReview);
+    const review = new Review(req.body);
+    await review.save();
+    res.status(201).json(review);
   } catch (error) {
-    res.status(500).json({ message: 'Failed to add review', error });
+    res.status(400).send(error.message);
   }
 });
 
-// Delete a review
-router.delete('/reviews/:reviewId', async (req, res) => {
+
+// Delete a review by bookName and userName
+router.delete('/:bookName/:UserName', async (req, res) => {
+  const { bookName, UserName } = req.params;
+
   try {
-    const reviewId = req.params.reviewId;
-    const deletedReview = await Review.findByIdAndDelete(reviewId);
-
-    if (!deletedReview) {
-      return res.status(404).json({ message: 'Review not found' });
-    }
-
-    res.json({ message: 'Review deleted successfully' });
+    const review = await Review.findOneAndDelete({ bookName, UserName });
+    
+    if (!review) return res.status(404).send('Review not found');
+    
+    res.send('Review deleted');
   } catch (error) {
-    res.status(500).json({ message: 'Failed to delete review', error });
+    res.status(500).send(error.message);
   }
 });
 

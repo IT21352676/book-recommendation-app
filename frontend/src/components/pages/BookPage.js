@@ -188,34 +188,36 @@ const BooksPage = () => {
 
 
 
-       {/*Book list part*/}  
-       <Paper sx={{ padding: '40px', marginBottom: '20px' }}>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Typography 
-            variant="h6" 
-            gutterBottom
-            sx={{ 
-              fontWeight: 'bold', 
-              color: '#3e2723', 
-              fontSize: '1.5rem',
-              textAlign: 'center', 
-              marginBottom: '20px'
-            }}
-          >
-            Book List
-          </Typography>
-          <Button 
-            variant="contained" 
-            color="primary" 
-            onClick={() => openDialog()} 
-            startIcon={<Add />} // Add "+" icon
-            sx={{ paddingX: 5, backgroundColor: '#8d6e63', '&:hover': { backgroundColor: '#6d4c41' } }}
-          >
-            Add New Book
-          </Button>
-         
-        </Box>
-        <List>
+      {/* Book list part */}  
+<Paper sx={{ padding: '40px', marginBottom: '20px' }}>
+  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+    <Typography 
+      variant="h6" 
+      gutterBottom
+      sx={{ 
+        fontWeight: 'bold', 
+        color: '#3e2723', 
+        fontSize: '1.5rem',
+        textAlign: 'center', 
+        marginBottom: '20px'
+      }}
+    >
+      Book List
+    </Typography>
+    <Button 
+      variant="contained" 
+      color="primary" 
+      onClick={() => openDialog()} 
+      startIcon={<Add />} // Add "+" icon
+      sx={{ paddingX: 5, backgroundColor: '#8d6e63', '&:hover': { backgroundColor: '#6d4c41' } }}
+    >
+      Add New Book
+    </Button>
+  </Box>
+
+  {/* Scrollable list container */}
+  <Box sx={{ maxHeight: '300px', overflowY: 'auto' }}> {/* Set height and enable scrolling */}
+    <List>
       {books.map((book) => (
         <ListItem key={book._id} divider>
           <ListItemText
@@ -241,8 +243,9 @@ const BooksPage = () => {
           </IconButton>
         </ListItem>
       ))}
-</List>
-      </Paper>
+    </List>
+  </Box>
+</Paper>
 
       {/*Discord bot part*/}   
       <Paper sx={{ padding: '40px', marginBottom: '20px' }}>   

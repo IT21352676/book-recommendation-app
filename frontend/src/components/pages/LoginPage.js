@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Container, Typography, TextField, Button, Paper, Box, Alert, Link } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { login } from './api'; // Assuming you have an API call set up for login
+import { login } from './api';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');

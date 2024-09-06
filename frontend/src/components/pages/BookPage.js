@@ -186,6 +186,64 @@ const BooksPage = () => {
 
       {error && <Alert severity="error" sx={{ marginBottom: '20px' }}>{error}</Alert>}
 
+
+
+       {/*Book list part*/}  
+       <Paper sx={{ padding: '40px', marginBottom: '20px' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Typography 
+            variant="h6" 
+            gutterBottom
+            sx={{ 
+              fontWeight: 'bold', 
+              color: '#3e2723', 
+              fontSize: '1.5rem',
+              textAlign: 'center', 
+              marginBottom: '20px'
+            }}
+          >
+            Book List
+          </Typography>
+          <Button 
+            variant="contained" 
+            color="primary" 
+            onClick={() => openDialog()} 
+            startIcon={<Add />} // Add "+" icon
+            sx={{ paddingX: 5, backgroundColor: '#8d6e63', '&:hover': { backgroundColor: '#6d4c41' } }}
+          >
+            Add New Book
+          </Button>
+         
+        </Box>
+        <List>
+      {books.map((book) => (
+        <ListItem key={book._id} divider>
+          <ListItemText
+            primary={
+              <Typography component="span" sx={{ display: 'flex', alignItems: 'center', color: '#3e2723', fontWeight: 'bold' }}>
+                <BookIcon sx={{ fontSize: 20, marginRight: 1 }} />
+                {book.title}
+              </Typography>
+            }
+            secondary={
+              <React.Fragment>
+                <span>Author: {book.author}</span>
+                <br />
+                <span>Description: {book.description}</span>
+              </React.Fragment>
+            }
+          />
+          <IconButton onClick={() => openDialog(book)}>
+            <Edit />
+          </IconButton>
+          <IconButton onClick={() => handleDeleteBook(book._id)}>
+            <Delete />
+          </IconButton>
+        </ListItem>
+      ))}
+</List>
+      </Paper>
+
       {/*Discord bot part*/}   
       <Paper sx={{ padding: '40px', marginBottom: '20px' }}>   
       <Typography variant="h6" sx={{ 
@@ -254,61 +312,7 @@ const BooksPage = () => {
           </Box>
           </Paper>
 
-      {/*Book list part*/}  
-      <Paper sx={{ padding: '40px', marginBottom: '20px' }}>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Typography 
-            variant="h6" 
-            gutterBottom
-            sx={{ 
-              fontWeight: 'bold', 
-              color: '#3e2723', 
-              fontSize: '1.5rem',
-              textAlign: 'center', 
-              marginBottom: '20px'
-            }}
-          >
-            Book List
-          </Typography>
-          <Button 
-            variant="contained" 
-            color="primary" 
-            onClick={() => openDialog()} 
-            startIcon={<Add />} // Add "+" icon
-            sx={{ paddingX: 5, backgroundColor: '#8d6e63', '&:hover': { backgroundColor: '#6d4c41' } }}
-          >
-            Add New Book
-          </Button>
-         
-        </Box>
-        <List>
-      {books.map((book) => (
-        <ListItem key={book._id} divider>
-          <ListItemText
-            primary={
-              <Typography component="span" sx={{ display: 'flex', alignItems: 'center', color: '#3e2723', fontWeight: 'bold' }}>
-                <BookIcon sx={{ fontSize: 20, marginRight: 1 }} />
-                {book.title}
-              </Typography>
-            }
-            secondary={
-              <React.Fragment>
-                <span>Author: {book.author}</span>
-                <br />
-                <span>Description: {book.description}</span>
-              </React.Fragment>
-            }
-          />
-          <IconButton onClick={() => openDialog(book)}>
-            <Edit />
-          </IconButton>
-          <IconButton onClick={() => handleDeleteBook(book._id)}>
-            <Delete />
-          </IconButton>
-        </ListItem>
-      ))}
-</List>
-      </Paper>
+     
 
       
       {/*Get recomendation part*/}  

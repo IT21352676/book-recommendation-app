@@ -37,7 +37,7 @@ function startBot() {
         
             // Call the API request to add the book
             try {
-                const response = await axios.post('http://localhost:5000/api/books', {
+                const response = await axios.post('https://clownfish-app-3h2ig.ondigitalocean.app/api/books', {
                     title: title,
                     author: author,
                     description: description
@@ -59,7 +59,7 @@ function startBot() {
                 
                 // Call the API to get the list of books
                 try {
-                    const response = await axios.get('http://localhost:5000/api/books');
+                    const response = await axios.get('https://clownfish-app-3h2ig.ondigitalocean.app/api/books');
                     const books = response.data;
 
                     if (books.length === 0) {
@@ -91,7 +91,7 @@ function startBot() {
 
                     try {
                         // Call the API to delete the book
-                        const response = await axios.delete(`http://localhost:5000/api/books/title/${bookName}`);
+                        const response = await axios.delete(`https://clownfish-app-3h2ig.ondigitalocean.app/api/books/title/${bookName}`);
 
                         if (response.status === 200) {
                             message.channel.send(`The book "${bookName}" has been deleted successfully.`);
@@ -139,7 +139,7 @@ function startBot() {
 
                     try {
                         // Call the API to update the book details
-                        const response = await axios.put(`http://localhost:5000/api/books/title/${bookName}`, {
+                        const response = await axios.put(`https://clownfish-app-3h2ig.ondigitalocean.app/api/books/title/${bookName}`, {
                             title: newTitle,
                             author: newAuthor,
                             description: newDescription
@@ -186,7 +186,7 @@ function startBot() {
 
                 // Call the API to add the review
                 try {
-                    const response = await axios.post('http://localhost:5000/api/reviews', {
+                    const response = await axios.post('https://clownfish-app-3h2ig.ondigitalocean.app/api/reviews', {
                         bookName: bookName,
                         UserName: userName,
                         rating: rating,
@@ -209,7 +209,7 @@ function startBot() {
                 
                 // Call the API to get the list of reviews
                 try {
-                    const response = await axios.get('http://localhost:5000/api/reviews');
+                    const response = await axios.get('https://clownfish-app-3h2ig.ondigitalocean.app/api/reviews');
                     const reviews = response.data;
 
                     if (reviews.length === 0) {
@@ -250,7 +250,7 @@ function startBot() {
 
                 // Call the API to delete the review
                 try {
-                    const response = await axios.delete(`http://localhost:5000/api/reviews/${bookName}/${userName}`, {
+                    const response = await axios.delete(`https://clownfish-app-3h2ig.ondigitalocean.app/api/reviews/${bookName}/${userName}`, {
                         data: { bookName, userName }
                     });
 

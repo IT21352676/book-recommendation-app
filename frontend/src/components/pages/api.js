@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000/api';
+const API_URL = 'https://clownfish-app-3h2ig.ondigitalocean.app/api';
 
 // Set up axios defaults
 const instance = axios.create({

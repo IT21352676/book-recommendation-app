@@ -1,0 +1,32 @@
+[build]
+  # Set the directory where your built files (HTML, JS, CSS) are located.
+  publish = "build"
+  
+  # Set the directory for your serverless functions.
+  functions = "netlify/functions"
+
+  # Command to build your project before deploying
+  command = "npm run build"
+
+[functions]
+  # Specify the location of your serverless functions
+  directory = "netlify/functions"
+
+  # Optionally, set node.js version for functions
+  node_bundler = "esbuild"
+
+[dev]
+  # Port for local development
+  port = 8888
+
+[[redirects]]
+  # Example redirect from /api/* to the serverless functions in Netlify
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+  force = true
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"

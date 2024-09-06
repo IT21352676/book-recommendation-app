@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Review = require('../api/models/Review');
+const Review = require('../models/Review');
 
 // Get all reviews
 router.get('/', async (req, res) => {

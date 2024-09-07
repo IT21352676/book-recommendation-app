@@ -2,6 +2,8 @@ const { Client, GatewayIntentBits } = require('discord.js');
 const axios = require('axios');
 require('dotenv').config();
 
+const API_URL = 'https://clownfish-app-3h2ig.ondigitalocean.app/api';
+
 function startBot() {
     const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages] });
 
@@ -37,7 +39,7 @@ function startBot() {
         
             // Call the API request to add the book
             try {
-                const response = await axios.post('https://clownfish-app-3h2ig.ondigitalocean.app/api/books', {
+                const response = await axios.post(`${API_URL}/books`, {
                     title: title,
                     author: author,
                     description: description

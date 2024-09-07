@@ -10,7 +10,7 @@ const HomePage = () => {
   };
 
   return (
-    <Container className="background-page" maxWidth="none" sx={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative' }}>
+    <Container maxWidth="none" sx={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative' }}>
        {/*Site name and start here content*/}
       <Paper
         elevation={4}

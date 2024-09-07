@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import BookIcon from '@mui/icons-material/Book';
 
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 
 const BooksPage = () => {
@@ -30,6 +31,12 @@ const BooksPage = () => {
   const handleSeeReviews = () => {
     navigate('/reviews'); // Go to review page
   };
+
+  const handleBack = () => {
+    navigate('/login'); // Go to review page
+  };
+
+
 
   // Get all books
   useEffect(() => {
@@ -136,13 +143,23 @@ const BooksPage = () => {
 
   return (
   
-    <Container maxWidth="ls">
+    <Container maxWidth="none">
       <Grid maxWidth="md"
       sx={{
         paddingY: '20px',
         marginLeft: 'auto', // Align the container to the left side
         marginRight: 'auto',
       }}>
+
+      <Box sx={{ display: 'flex', justifyContent: 'right', marginBottom:5 }}> <Button
+      onClick={handleBack}
+      variant="contained"
+      color="primary"
+      startIcon={<LogoutIcon />}
+      sx={{ paddingX: 5, backgroundColor: '#8d6e63', '&:hover': { backgroundColor: '#6d4c41' } }}>
+            Log Out
+      </Button>
+      </Box>
 
       {/*Search book part*/}   
       <Paper sx={{ padding: '40px', marginBottom: '20px' }}>
@@ -160,6 +177,7 @@ const BooksPage = () => {
         >
           Books Collection
         </Typography>
+        
         <form onSubmit={handleSearch}>
           <TextField
             label="Search by Title"
@@ -204,19 +222,21 @@ const BooksPage = () => {
     >
       Book List
     </Typography>
+    <Box sx={{ justifyContent: 'right', marginBottom:5 }}>
     <Button 
       variant="contained" 
       color="primary" 
       onClick={() => openDialog()} 
       startIcon={<Add />} // Add "+" icon
-      sx={{ paddingX: 5, backgroundColor: '#8d6e63', '&:hover': { backgroundColor: '#6d4c41' } }}
+      sx={{ paddingX: 3, backgroundColor: '#8d6e63', '&:hover': { backgroundColor: '#6d4c41' } }}
     >
-      Add New Book
+      Add
     </Button>
+    </Box>
   </Box>
 
   {/* Scrollable list container */}
-  <Box sx={{ maxHeight: '300px', overflowY: 'auto' }}> {/* Set height and enable scrolling */}
+  <Box sx={{ maxHeight: '400px', overflowY: 'auto' }}> {/* Set height and enable scrolling */}
     <List>
       {books.map((book) => (
         <ListItem key={book._id} divider>

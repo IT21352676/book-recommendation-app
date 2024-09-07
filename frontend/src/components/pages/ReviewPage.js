@@ -3,8 +3,17 @@ import { Container, TextField, Button, Typography, Grid, Paper, Rating, Box } fr
 import { getReviews, addReview } from './api';
 import PersonIcon from '@mui/icons-material/Person';
 import BookIcon from '@mui/icons-material/Book';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { useNavigate } from 'react-router-dom';
 
 const ReviewPage = () => {
+
+  const navigate = useNavigate();
+
+  const handleBackLogin = () => {
+    navigate('/login'); // Go to review page
+  };
+
   const [reviews, setReviews] = useState([]);
   const [newReview, setNewReview] = useState({
     bookName: '',
@@ -41,6 +50,16 @@ const ReviewPage = () => {
 
   return (
     <Container maxWidth="md" sx={{ paddingY: '20px' }}>
+      <Box sx={{ display: 'flex', justifyContent: 'right', marginBottom:5 }}> 
+      <Button
+      onClick={handleBackLogin}
+      variant="contained"
+      color="primary"
+      startIcon={<LogoutIcon />}
+      sx={{ paddingX: 5, backgroundColor: '#8d6e63', '&:hover': { backgroundColor: '#6d4c41' } }}>
+            Log Out
+      </Button>
+      </Box>
       
       <Grid container spacing={2}>
         <Grid item xs={12}>
